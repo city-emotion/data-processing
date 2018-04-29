@@ -1,0 +1,522 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18671,        514]
+NotebookOptionsPosition[     15481,        434]
+NotebookOutlinePosition[     15869,        451]
+CellTagsIndexPosition[     15826,        448]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"rawTemperatureData", "=", 
+   RowBox[{"WeatherData", "[", 
+    RowBox[{"\"\<Hangzhou\>\"", ",", "\"\<Temperature\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "7", ",", "1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "12", ",", "31", ",", "23"}], "}"}]}], "}"}], 
+     ",", 
+     RowBox[{"TimeZone", "\[Rule]", " ", "8"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.733734329513713*^9, 3.7337344348286867`*^9}, {
+   3.733734466671425*^9, 3.7337345081894045`*^9}, {3.733734664730831*^9, 
+   3.7337346676841097`*^9}, {3.7337351918450904`*^9, 3.733735213490088*^9}, {
+   3.7337353229385037`*^9, 3.733735336117883*^9}, {3.7337357408889647`*^9, 
+   3.733735981543747*^9}, 3.7337360368604307`*^9, 
+   3.7337381949578657`*^9},ExpressionUUID->"8bb29a25-a69b-4d14-8ff8-\
+fd48d5ad0803"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"temperatureData", "=", 
+   RowBox[{
+    RowBox[{"Normal", "[", 
+     RowBox[{"TimeSeriesResample", "[", 
+      RowBox[{"rawTemperatureData", ",", "3600"}], "]"}], "]"}], 
+    "\[LeftDoubleBracket]", 
+    RowBox[{"All", ",", "2", ",", "1"}], "\[RightDoubleBracket]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.733734546452551*^9, 3.7337349025948124`*^9}, {
+  3.733735372020755*^9, 3.7337354909467683`*^9}, {3.7337364782586207`*^9, 
+  3.7337365163614264`*^9}, {3.733736680946985*^9, 3.733736692771899*^9}, {
+  3.7337367297842674`*^9, 3.733736915695735*^9}, {3.7337370479211793`*^9, 
+  3.7337370565982237`*^9}, {3.733737915641822*^9, 3.73373793860106*^9}, {
+  3.7337381667591243`*^9, 3.7337381767210207`*^9}, {3.7337383574537497`*^9, 
+  3.733738417056649*^9}, {3.7337386333689733`*^9, 3.733738842509822*^9}, {
+  3.7337389021761513`*^9, 3.7337389492156568`*^9}, {3.733739034389323*^9, 
+  3.7337390568819323`*^9}},ExpressionUUID->"5371ad76-dc74-4e1a-b595-\
+deb508aa8e3e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Length", "[", "temperatureData", "]"}]], "Input",
+ CellChangeTimes->{{3.733955653930124*^9, 
+  3.733955657002016*^9}},ExpressionUUID->"070e98b7-6a1e-4ad5-9459-\
+27649b9c189b"],
+
+Cell[BoxData["4416"], "Output",
+ CellChangeTimes->{
+  3.733955657420452*^9},ExpressionUUID->"ccb169a8-83b0-4a9a-a130-\
+c2725ac03485"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+     "\"\<weather/tmp.json\>\""}], ",", "temperatureData", ",", 
+    RowBox[{"\"\<Compact\>\"", "\[Rule]", "True"}]}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.7337389513813667`*^9, 
+  3.733739010082961*^9}},ExpressionUUID->"351b9924-6c77-4dda-9a11-\
+e25b743f2ff3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"rawWindspeedData", "=", 
+   RowBox[{"WeatherData", "[", 
+    RowBox[{"\"\<Hangzhou\>\"", ",", "\"\<WindSpeed\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "7", ",", "1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "12", ",", "31", ",", "23"}], "}"}]}], "}"}], 
+     ",", 
+     RowBox[{"TimeZone", "\[Rule]", " ", "8"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7337391730220976`*^9, 3.7337391835964155`*^9}, {
+   3.733739889888669*^9, 3.733739896555402*^9}, 
+   3.733740024316657*^9},ExpressionUUID->"9eab7fa2-d709-4e2d-bef0-\
+55ca7aed9876"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"windData", "=", 
+   RowBox[{
+    RowBox[{"Normal", "[", 
+     RowBox[{"TimeSeriesResample", "[", 
+      RowBox[{"rawWindspeedData", ",", "3600"}], "]"}], "]"}], 
+    "\[LeftDoubleBracket]", 
+    RowBox[{"All", ",", "2", ",", "1"}], "\[RightDoubleBracket]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.733740036623684*^9, 
+  3.733740039981638*^9}},ExpressionUUID->"5dd3c565-bb94-487a-adb2-\
+d027ac0109e4"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+     "\"\<weather/wind.json\>\""}], ",", "windData", ",", 
+    RowBox[{"\"\<Compact\>\"", "\[Rule]", "True"}]}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.733740057771245*^9, 
+  3.7337400897075777`*^9}},ExpressionUUID->"4385a58f-9431-4269-87e6-\
+7ef547ae7a37"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"rawAirPressureData", "=", 
+   RowBox[{"WeatherData", "[", 
+    RowBox[{"\"\<Hangzhou\>\"", ",", "\"\<Pressure\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "7", ",", "1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "12", ",", "31", ",", "23"}], "}"}]}], "}"}], 
+     ",", 
+     RowBox[{"TimeZone", "\[Rule]", " ", "8"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.733740114562168*^9, 
+  3.7337401279171085`*^9}},ExpressionUUID->"fa36596c-2937-485f-aced-\
+e3ea3ec4cce0"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"airPressureData", "=", 
+   RowBox[{
+    RowBox[{"Normal", "[", 
+     RowBox[{"TimeSeriesResample", "[", 
+      RowBox[{"rawAirPressureData", ",", "3600"}], "]"}], "]"}], 
+    "\[LeftDoubleBracket]", 
+    RowBox[{"All", ",", "2", ",", "1"}], "\[RightDoubleBracket]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.733740136789668*^9, 3.7337401627293997`*^9}, {
+  3.7339535609841013`*^9, 
+  3.733953566206913*^9}},ExpressionUUID->"b77bcf21-e7cf-4659-9c7a-\
+bd2bce500f19"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Export", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+     "\"\<weather/pressure.json\>\""}], ",", "airPressureData", ",", 
+    RowBox[{"\"\<Compact\>\"", "\[Rule]", "True"}]}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.733740167486184*^9, 3.7337401831814313`*^9}, 
+   3.733953571790495*^9},ExpressionUUID->"662fb066-0994-48ee-8ef8-\
+9e8f13269406"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"daylightTest", "=", 
+   RowBox[{"Parallelize", "[", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"DaylightQ", "[", 
+       RowBox[{
+        RowBox[{"GeoPosition", "[", 
+         RowBox[{"{", 
+          RowBox[{"30.29`", ",", "120.16`"}], "}"}], "]"}], ",", "#"}], "]"}],
+       "&"}], "/@", 
+     RowBox[{"FromUnixTime", "/@", 
+      RowBox[{"Range", "[", 
+       RowBox[{
+        RowBox[{"UnixTime", "[", 
+         RowBox[{"{", 
+          RowBox[{"2017", ",", "7", ",", "1", ",", "0"}], "}"}], "]"}], ",", 
+        RowBox[{"UnixTime", "[", 
+         RowBox[{"{", 
+          RowBox[{"2017", ",", "12", ",", "31", ",", "23"}], "}"}], "]"}], 
+        ",", "3600"}], "]"}]}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.733740441507634*^9, 3.733740495268133*^9}, {
+  3.7337405365919237`*^9, 3.7337407224718533`*^9}, {3.733740761271659*^9, 
+  3.733740836573368*^9}},ExpressionUUID->"fae89990-9075-4da7-9816-\
+f71ef689a16b"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"rawCloudCover", "=", 
+   RowBox[{"WeatherData", "[", 
+    RowBox[{"\"\<Hangzhou\>\"", ",", "\"\<CloudCoverFraction\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "7", ",", "1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "12", ",", "31", ",", "23"}], "}"}]}], "}"}], 
+     ",", 
+     RowBox[{"TimeZone", "\[Rule]", " ", "8"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7337409403534827`*^9, 3.733740961188181*^9}, 
+   3.73374100396527*^9, {3.7337410497085524`*^9, 
+   3.7337410530193787`*^9}},ExpressionUUID->"b9ae7b39-860f-4cb0-83a1-\
+5c15959eb426"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"cloudCover", "=", 
+   RowBox[{
+    RowBox[{"Normal", "[", 
+     RowBox[{"TimeSeriesResample", "[", 
+      RowBox[{
+       RowBox[{"TimeSeries", "@@", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+             "#", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], ",", 
+             RowBox[{"{", 
+              RowBox[{
+              "#", "\[LeftDoubleBracket]", "2", "\[RightDoubleBracket]"}], 
+              "}"}]}], "}"}], "&"}], "[", 
+          RowBox[{"Transpose", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"{", 
+              RowBox[{"0.25", ",", "3707827200"}], "}"}], "}"}], "~", "Join", 
+            "~", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"Transpose", "[", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"rawCloudCover", "\[LeftDoubleBracket]", 
+                  RowBox[{"2", ",", "1", ",", "1"}], 
+                  "\[RightDoubleBracket]"}], ",", 
+                 RowBox[{"rawCloudCover", "\[LeftDoubleBracket]", 
+                  RowBox[{"2", ",", "2", ",", "1", ",", "1"}], 
+                  "\[RightDoubleBracket]"}]}], "}"}], "]"}], "/.", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"{", 
+                 RowBox[{"_Missing", ",", "__"}], "}"}], "\[Rule]", " ", 
+                "Nothing"}], "}"}]}], ")"}], "~", "Join", "~", 
+            RowBox[{"{", 
+             RowBox[{"{", 
+              RowBox[{"0.25", ",", "3723723000"}], "}"}], "}"}]}], "]"}], 
+          "]"}], ")"}]}], ",", "3600"}], "]"}], "]"}], "\[LeftDoubleBracket]", 
+    RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7337421998535175`*^9, 3.733742228513609*^9}, {
+  3.7337422786721125`*^9, 3.7337423413611317`*^9}, {3.7337424148556633`*^9, 
+  3.733742419645319*^9}, {3.733742523114729*^9, 3.733742774484911*^9}, {
+  3.7337428068704247`*^9, 3.7337428823104324`*^9}, {3.7337430182831335`*^9, 
+  3.733743026158303*^9}, {3.73374306503585*^9, 3.733743109597542*^9}, {
+  3.733743146581419*^9, 3.733743149387992*^9}, {3.7337432034561787`*^9, 
+  3.7337432420302415`*^9}, {3.733743273555004*^9, 3.733743285065486*^9}, {
+  3.7337434387257705`*^9, 3.7337434928867893`*^9}, {3.733743578942812*^9, 
+  3.733743626723604*^9}, {3.733743684367618*^9, 3.7337436897359877`*^9}, {
+  3.7337437364962287`*^9, 
+  3.7337438498047867`*^9}},ExpressionUUID->"265cd3b3-d8a2-4c0a-b1f2-\
+8c37d31b7389"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+    "\"\<weather/daylight_test.json\>\""}], ",", 
+   RowBox[{"daylightTest", "/.", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"True", "\[Rule]", "1."}], ",", 
+      RowBox[{"False", "\[Rule]", "0."}]}], "}"}]}], ",", 
+   RowBox[{"\"\<Compact\>\"", "\[Rule]", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7337408942545424`*^9, 3.7337409180433416`*^9}, {
+  3.7337411328650136`*^9, 
+  3.7337411772956295`*^9}},ExpressionUUID->"35a65387-2046-4364-989e-\
+fbaecb4bcf05"],
+
+Cell[BoxData["\<\"D:\\\\development\\\\traffic-data\\\\weather/daylight_test.\
+json\"\>"], "Output",
+ CellChangeTimes->{
+  3.733742992991287*^9},ExpressionUUID->"755fea0a-2937-41fa-89f1-\
+deaab30d4bdb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"daylightTest", "//", "Length"}]], "Input",
+ CellChangeTimes->{{3.733742998148657*^9, 
+  3.733743000646411*^9}},ExpressionUUID->"bf0222dd-ff27-4f14-a071-\
+453592357434"],
+
+Cell[BoxData["4416"], "Output",
+ CellChangeTimes->{
+  3.733743827446495*^9},ExpressionUUID->"3ce5c9fc-f824-4801-820f-\
+099178040e01"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+    "\"\<weather/cloud_cover.json\>\""}], ",", "cloudCover", ",", 
+   RowBox[{"\"\<Compact\>\"", "\[Rule]", " ", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.733743861323303*^9, 
+  3.7337438949701242`*^9}},ExpressionUUID->"3f0e9717-8ebb-4e9f-9589-\
+ea5ce3f85d88"],
+
+Cell[BoxData["\<\"D:\\\\development\\\\traffic-data\\\\weather/cloud_cover.\
+json\"\>"], "Output",
+ CellChangeTimes->{
+  3.7337438968284693`*^9},ExpressionUUID->"f090b42d-0821-46ec-9aa7-\
+2350984c9ca3"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"rawHumidity", "=", 
+   RowBox[{"WeatherData", "[", 
+    RowBox[{"\"\<Hangzhou\>\"", ",", "\"\<Humidity\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "7", ",", "1", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2017", ",", "12", ",", "31", ",", "23"}], "}"}]}], "}"}], 
+     ",", 
+     RowBox[{"TimeZone", "\[Rule]", " ", "8"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.73374393789183*^9, 3.733743949340251*^9}, {
+  3.7337439841417866`*^9, 3.7337439847502394`*^9}, {3.733744485654875*^9, 
+  3.733744494375518*^9}},ExpressionUUID->"acec55e5-db70-4f1a-a76a-\
+43cdce2af91a"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"humidityData", "=", 
+   RowBox[{
+    RowBox[{"Normal", "[", 
+     RowBox[{"TimeSeriesResample", "[", 
+      RowBox[{"rawHumidity", ",", "3600"}], "]"}], "]"}], 
+    "\[LeftDoubleBracket]", 
+    RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.7337444554824715`*^9, 3.7337444577422824`*^9}, {
+  3.73374450220535*^9, 
+  3.7337445502675104`*^9}},ExpressionUUID->"25524b52-d3ad-4c11-9cb8-\
+09c87beae610"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+    "\"\<weather/humidity.json\>\""}], ",", "humidityData", ",", 
+   RowBox[{"\"\<Compact\>\"", "\[Rule]", " ", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7337441085075436`*^9, 3.7337441099801764`*^9}, {
+  3.7337445560759525`*^9, 
+  3.7337445611128697`*^9}},ExpressionUUID->"7057bd95-1471-4949-ad7a-\
+45fe6393f5bf"],
+
+Cell[BoxData["\<\"D:\\\\development\\\\traffic-data\\\\weather/humidity.json\"\
+\>"], "Output",
+ CellChangeTimes->{
+  3.7337445623643594`*^9},ExpressionUUID->"0ec53570-4603-4f19-9684-\
+9afa104079e2"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"daylightArray", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+     "\"\<weather/daylight_test.json\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"cloudCoverArray", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+     "\"\<weather/cloud_cover.json\>\""}], "]"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7337448050698476`*^9, 
+  3.733744880748234*^9}},ExpressionUUID->"112e5daf-3036-4965-a992-\
+1cde14a4c4b8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+    "\"\<weather/sunlight.json\>\""}], ",", 
+   RowBox[{"daylightArray", "*", 
+    RowBox[{"(", 
+     RowBox[{"1.", "-", "cloudCoverArray"}], ")"}]}], ",", 
+   RowBox[{"\"\<Compact\>\"", "\[Rule]", " ", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7337448834174204`*^9, 
+  3.733744956529605*^9}},ExpressionUUID->"3c6ce81f-df35-4773-a776-\
+63df7c100a0b"],
+
+Cell[BoxData["\<\"D:\\\\development\\\\traffic-data\\\\weather/sunlight.json\"\
+\>"], "Output",
+ CellChangeTimes->{{3.733744884801461*^9, 3.733744917021613*^9}, 
+   3.73374495751407*^9},ExpressionUUID->"1cf76bfc-5049-44d0-965b-\
+76cd071f7be2"]
+}, Open  ]]
+},
+WindowSize->{1229, 825},
+WindowMargins->{{333, Automatic}, {Automatic, 58}},
+Magnification:>1.6 Inherited,
+FrontEndVersion->"11.1 for Microsoft Windows (64-bit) (2017\:5e744\:670818\
+\:65e5)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 900, 19, 132, "Input", "ExpressionUUID" -> \
+"8bb29a25-a69b-4d14-8ff8-fd48d5ad0803"],
+Cell[1461, 41, 1004, 19, 74, "Input", "ExpressionUUID" -> \
+"5371ad76-dc74-4e1a-b595-deb508aa8e3e"],
+Cell[CellGroupData[{
+Cell[2490, 64, 199, 4, 74, "Input", "ExpressionUUID" -> \
+"070e98b7-6a1e-4ad5-9459-27649b9c189b"],
+Cell[2692, 70, 133, 3, 81, "Output", "ExpressionUUID" -> \
+"ccb169a8-83b0-4a9a-a130-c2725ac03485"]
+}, Open  ]],
+Cell[2840, 76, 398, 10, 74, "Input", "ExpressionUUID" -> \
+"351b9924-6c77-4dda-9a11-e25b743f2ff3"],
+Cell[3241, 88, 666, 16, 132, "Input", "ExpressionUUID" -> \
+"9eab7fa2-d709-4e2d-bef0-55ca7aed9876"],
+Cell[3910, 106, 441, 12, 74, "Input", "ExpressionUUID" -> \
+"5dd3c565-bb94-487a-adb2-d027ac0109e4"],
+Cell[4354, 120, 392, 10, 74, "Input", "ExpressionUUID" -> \
+"4385a58f-9431-4269-87e6-7ef547ae7a37"],
+Cell[4749, 132, 592, 15, 132, "Input", "ExpressionUUID" -> \
+"fa36596c-2937-485f-aced-e3ea3ec4cce0"],
+Cell[5344, 149, 503, 13, 74, "Input", "ExpressionUUID" -> \
+"b77bcf21-e7cf-4659-9c7a-bd2bce500f19"],
+Cell[5850, 164, 426, 10, 74, "Input", "ExpressionUUID" -> \
+"662fb066-0994-48ee-8ef8-9e8f13269406"],
+Cell[6279, 176, 957, 25, 162, "Input", "ExpressionUUID" -> \
+"fae89990-9075-4da7-9816-f71ef689a16b"],
+Cell[7239, 203, 673, 16, 132, "Input", "ExpressionUUID" -> \
+"b9ae7b39-860f-4cb0-83a1-5c15959eb426"],
+Cell[7915, 221, 2565, 57, 336, "Input", "ExpressionUUID" -> \
+"265cd3b3-d8a2-4c0a-b1f2-8c37d31b7389"],
+Cell[CellGroupData[{
+Cell[10505, 282, 588, 15, 132, "Input", "ExpressionUUID" -> \
+"35a65387-2046-4364-989e-fbaecb4bcf05"],
+Cell[11096, 299, 202, 4, 48, "Output", "ExpressionUUID" -> \
+"755fea0a-2937-41fa-89f1-deaab30d4bdb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11335, 308, 192, 4, 74, "Input", "ExpressionUUID" -> \
+"bf0222dd-ff27-4f14-a071-453592357434"],
+Cell[11530, 314, 133, 3, 48, "Output", "ExpressionUUID" -> \
+"3ce5c9fc-f824-4801-820f-099178040e01"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[11700, 322, 383, 9, 132, "Input", "ExpressionUUID" -> \
+"3f0e9717-8ebb-4e9f-9589-ea5ce3f85d88"],
+Cell[12086, 333, 202, 4, 76, "Output", "ExpressionUUID" -> \
+"f090b42d-0821-46ec-9aa7-2350984c9ca3"]
+}, Open  ]],
+Cell[12303, 340, 681, 16, 211, "Input", "ExpressionUUID" -> \
+"acec55e5-db70-4f1a-a76a-43cdce2af91a"],
+Cell[12987, 358, 481, 12, 118, "Input", "ExpressionUUID" -> \
+"25524b52-d3ad-4c11-9cb8-09c87beae610"],
+Cell[CellGroupData[{
+Cell[13493, 374, 437, 10, 211, "Input", "ExpressionUUID" -> \
+"7057bd95-1471-4949-ad7a-45fe6393f5bf"],
+Cell[13933, 386, 199, 4, 76, "Output", "ExpressionUUID" -> \
+"0ec53570-4603-4f19-9684-9afa104079e2"]
+}, Open  ]],
+Cell[14147, 393, 574, 16, 211, "Input", "ExpressionUUID" -> \
+"112e5daf-3036-4965-a992-1cde14a4c4b8"],
+Cell[CellGroupData[{
+Cell[14746, 413, 473, 12, 211, "Input", "ExpressionUUID" -> \
+"3c6ce81f-df35-4773-a776-63df7c100a0b"],
+Cell[15222, 427, 243, 4, 76, "Output", "ExpressionUUID" -> \
+"1cf76bfc-5049-44d0-965b-76cd071f7be2"]
+}, Open  ]]
+}
+]
+*)
+

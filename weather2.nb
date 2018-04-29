@@ -1,0 +1,303 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     11981,        295]
+NotebookOptionsPosition[     11392,        273]
+NotebookOutlinePosition[     11781,        290]
+CellTagsIndexPosition[     11738,        287]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"Arguments", "\[IndentingNewLine]", 
+     RowBox[{"Clothing", ":", " ", 
+      RowBox[{"clo", "\[IndentingNewLine]", "Metabolic", " ", "rate"}], ":", 
+      " ", 
+      RowBox[{"met", "\[IndentingNewLine]", "External", " ", "work"}]}]}], 
+    ",", " ", 
+    RowBox[{
+     RowBox[{"normally", " ", "around", " ", "0"}], ":", " ", 
+     RowBox[{"met", "\[IndentingNewLine]", "Air", " ", "temperature"}], ":", 
+     RowBox[{"\[Degree]C", "\[IndentingNewLine]", "Mean", " ", "radiant", " ", 
+      RowBox[{"temperature", ":", " ", 
+       RowBox[{
+       "\[Degree]C", "\[IndentingNewLine]", "Relative", " ", "air", " ", 
+        "velocity"}], ":", " ", 
+       RowBox[{
+        RowBox[{"m", "/", "s"}], "\[IndentingNewLine]", "Relative", " ", 
+        RowBox[{"humidity", ":", " ", 
+         RowBox[{
+         "%", "\[IndentingNewLine]", "Water", " ", "vapour", " ", 
+          "pressure"}], ":", "  ", "Pa"}]}]}]}]}]}], "\[IndentingNewLine]", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"PMV", "[", 
+    RowBox[{
+    "CLO_", ",", "MET_", ",", "WME_", ",", "TA_", ",", "TR_", ",", "VEL_", 
+     ",", "RH_", ",", "PA_"}], "]"}], ":=", "\[IndentingNewLine]", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "FNPS", ",", "nPA", ",", "ICL", ",", "M", ",", "W", ",", "MW", ",", 
+       "FCL", ",", "HCF", ",", "TAA", ",", "TRA", ",", "P", ",", "HC", ",", 
+       "TCL", ",", "HL", ",", "TS", ",", "i"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{"saturated", " ", "vapour", " ", "pressure"}], ",", " ", 
+       "kPa"}], " ", "*)"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"FNPS", "[", "T_", "]"}], ":=", 
+       RowBox[{"Exp", "[", 
+        RowBox[{"16.6536", "-", 
+         RowBox[{"4030.183", "/", 
+          RowBox[{"(", 
+           RowBox[{"T", "+", "235"}], ")"}]}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+        RowBox[{"water", " ", "vapour", " ", "pressure"}], ",", " ", "Pa"}], 
+       " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"nPA", "=", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"PA", "\[Equal]", "0"}], ",", 
+         RowBox[{"RH", "*", "10", "*", 
+          RowBox[{"FNPS", "[", "TA", "]"}]}], ",", "PA"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "thermal", " ", "insulation", " ", "of", " ", "the", " ", "clothing", 
+        " ", "in", " ", 
+        SuperscriptBox["m", "2"], 
+        RowBox[{"K", "/", "W"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"ICL", "=", 
+       RowBox[{".155", "*", "CLO"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"metabolic", " ", "rate", " ", "in", " ", 
+        RowBox[{"W", "/", 
+         SuperscriptBox["m", "2"]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"M", "=", 
+       RowBox[{"MET", "*", "58.15"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"external", " ", "work", " ", "in", " ", 
+        RowBox[{"W", "/", 
+         SuperscriptBox["m", "2"]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"W", "=", 
+       RowBox[{"WME", "*", "58.15"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "internal", " ", "heat", " ", "production", " ", "in", " ", "the", " ",
+         "human", " ", "body"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"MW", "=", 
+       RowBox[{"M", "-", "W"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"clothing", " ", "area", " ", "factor"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"FCL", "=", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"ICL", "\[LessEqual]", "0.078"}], ",", 
+         RowBox[{"1.", "+", 
+          RowBox[{"1.29", "*", "ICL"}]}], ",", 
+         RowBox[{"1.05", "+", 
+          RowBox[{"0.645", "*", "ICL"}]}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"heat", " ", 
+        RowBox[{"transf", ".", " ", "coeff", ".", " ", "by"}], " ", "forced", 
+        " ", "convection"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"HCF", "=", 
+       RowBox[{"12.1", "*", 
+        RowBox[{"Sqrt", "[", "VEL", "]"}]}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"air", " ", "temperature", " ", "in", " ", "Kelvin"}], " ", 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"TAA", "=", 
+       RowBox[{"TA", "+", "273.15"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "mean", " ", "radiant", " ", "temperature", " ", "in", " ", "Kelvin"}],
+        " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"TRA", "=", 
+       RowBox[{"TR", "+", "273.15"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "claculate", " ", "surface", " ", "temperature", " ", "of", " ", 
+        "clothing", " ", "by", " ", "iteration"}], " ", "*)"}], 
+      "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{"initial", " ", "guess"}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"TCL", "=", 
+       RowBox[{"TAA", "+", 
+        RowBox[{
+         RowBox[{"(", 
+          RowBox[{"35.5", "-", "TA"}], ")"}], "/", 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"3.5", "*", "ICL"}], "+", ".1"}], ")"}]}]}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "0"}], ",", 
+        RowBox[{"i", "<", "10"}], ",", 
+        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"HC", "=", 
+          RowBox[{"Max", "[", 
+           RowBox[{
+            RowBox[{"2.38", 
+             SuperscriptBox[
+              RowBox[{"Abs", "[", 
+               RowBox[{"TCL", "-", "TAA"}], "]"}], "0.25"]}], ",", "HCF"}], 
+           "]"}]}], ";", "\[IndentingNewLine]", 
+         RowBox[{"Print", "[", "HC", "]"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"TCL", "=", 
+          RowBox[{"35.7", "-", 
+           RowBox[{"0.028", "*", "MW"}], "-", 
+           RowBox[{"ICL", "*", 
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{"3.96*^-8", "*", "FCL", "*", 
+               RowBox[{"(", 
+                RowBox[{
+                 SuperscriptBox["TCL", "4"], "-", 
+                 SuperscriptBox["TRA", "4"]}], ")"}]}], "+", 
+              RowBox[{"FCL", "*", "HC", "*", 
+               RowBox[{"(", 
+                RowBox[{"TCL", "-", "TA"}], ")"}]}]}], ")"}]}]}]}], ";"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"HL", "=", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"3.05*^-3", 
+          RowBox[{"(", 
+           RowBox[{"5733", "-", 
+            RowBox[{"6.99", "*", "MW"}], "-", "nPA"}], ")"}]}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{"MW", ">", "58.15"}], ",", 
+           RowBox[{".42", "*", 
+            RowBox[{"(", 
+             RowBox[{"MW", "-", "58.15"}], ")"}]}], ",", "0."}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{"1.7*^-5", "*", "M", "*", 
+          RowBox[{"(", 
+           RowBox[{"5867", "-", "nPA"}], ")"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{".0014", "*", "M", "*", 
+          RowBox[{"(", 
+           RowBox[{"34", "-", "TA"}], ")"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"3.96*^-8", "*", "FCL", "*", 
+          RowBox[{"(", 
+           RowBox[{
+            SuperscriptBox["TCL", "4"], "-", 
+            SuperscriptBox["TRA", "4"]}], ")"}]}], ",", "\[IndentingNewLine]", 
+         RowBox[{"FCL", "*", "HC", "*", 
+          RowBox[{"(", 
+           RowBox[{"TCL", "-", "TA"}], ")"}]}]}], "}"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"TS", "=", 
+       RowBox[{
+        RowBox[{".303", "*", 
+         RowBox[{"Exp", "[", 
+          RowBox[{
+           RowBox[{"-", ".036"}], "*", "M"}], "]"}]}], "+", ".028"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"TS", "*", 
+       RowBox[{"(", 
+        RowBox[{"MW", "-", 
+         RowBox[{"Total", "[", "HL", "]"}]}], ")"}]}]}]}], 
+    "\[IndentingNewLine]", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.7339107768693733`*^9, 3.733910880541324*^9}, {
+   3.7339109155294437`*^9, 3.7339110925874863`*^9}, {3.733911127955728*^9, 
+   3.7339111650632734`*^9}, {3.733911210037141*^9, 3.733911308745923*^9}, {
+   3.7339113727659225`*^9, 3.733911439971871*^9}, {3.733912302795661*^9, 
+   3.733912455724769*^9}, {3.7339126841548653`*^9, 3.7339136740639277`*^9}, {
+   3.7339137242007675`*^9, 3.7339138747565656`*^9}, {3.7339139614773517`*^9, 
+   3.733914101243896*^9}, {3.73391418953621*^9, 3.7339142022926264`*^9}, {
+   3.733914279238015*^9, 3.7339142801333256`*^9}, {3.7339144857133546`*^9, 
+   3.7339145062361927`*^9}, {3.7339145685444374`*^9, 3.733914571253866*^9}, {
+   3.7339146422732267`*^9, 3.733914915598406*^9}, {3.7339150860242796`*^9, 
+   3.7339151230049505`*^9}, {3.733915183827882*^9, 3.733915184358251*^9}, {
+   3.733915660285778*^9, 3.7339157070099983`*^9}, {3.733915746504665*^9, 
+   3.7339157933346133`*^9}, {3.7339158426699543`*^9, 3.7339158518005447`*^9}, 
+   3.7339159023075895`*^9, {3.733916206764264*^9, 3.733916210202183*^9}, {
+   3.7339162589536858`*^9, 3.733916291837118*^9}, 3.7339164895884714`*^9, {
+   3.7339165923568373`*^9, 3.733916597805849*^9}, {3.7339166350500307`*^9, 
+   3.7339166353943176`*^9}, {3.7339166696262712`*^9, 3.733916671875667*^9}, {
+   3.733916727786536*^9, 3.7339167363998966`*^9}, {3.733916917691033*^9, 
+   3.7339169575439873`*^9}, {3.7339170101042075`*^9, 
+   3.7339170105754786`*^9}, {3.7339170464275527`*^9, 3.733917092686762*^9}, {
+   3.7339171820143538`*^9, 3.73391720690874*^9}, {3.733917347753989*^9, 
+   3.733917382740769*^9}, {3.733917534566379*^9, 3.7339175438710337`*^9}, {
+   3.7339175967511473`*^9, 3.733917900415176*^9}, {3.7339179595890236`*^9, 
+   3.7339179704829826`*^9}, {3.7339180159580383`*^9, 
+   3.7339180899253454`*^9}, {3.7339181768089333`*^9, 3.733918185955535*^9}, 
+   3.733918220184679*^9, 
+   3.733918273214038*^9},ExpressionUUID->"fc820c38-efb1-4acb-8a3d-\
+9ce67b85d991"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Exp", "[", 
+  RowBox[{"16.6536", "-", 
+   RowBox[{"4030.183", "/", 
+    RowBox[{"(", 
+     RowBox[{"0", "+", "235"}], ")"}]}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7339172635078897`*^9, 3.7339172810924363`*^9}, 
+   3.7339173111061535`*^9},ExpressionUUID->"ce03d99e-9abd-4a9d-8077-\
+43201293b495"],
+
+Cell[BoxData["0.6088916792864865`"], "Output",
+ CellChangeTimes->{{3.7339172714685574`*^9, 
+  3.733917311615591*^9}},ExpressionUUID->"19272de0-3ef4-4faa-9521-\
+4650732bc916"]
+}, Open  ]]
+},
+WindowSize->{983, 751},
+WindowMargins->{{-112, Automatic}, {Automatic, 105}},
+Magnification:>1.9 Inherited,
+FrontEndVersion->"11.1 for Microsoft Windows (64-bit) (2017\:5e744\:670818\
+\:65e5)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 10292, 233, 2440, "Input", "ExpressionUUID" -> \
+"fc820c38-efb1-4acb-8a3d-9ce67b85d991"],
+Cell[CellGroupData[{
+Cell[10875, 257, 324, 8, 110, "Input", "ExpressionUUID" -> \
+"ce03d99e-9abd-4a9d-8077-43201293b495"],
+Cell[11202, 267, 174, 3, 81, "Output", "ExpressionUUID" -> \
+"19272de0-3ef4-4faa-9521-4650732bc916"]
+}, Open  ]]
+}
+]
+*)
+
